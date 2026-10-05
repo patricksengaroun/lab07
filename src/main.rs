@@ -26,6 +26,11 @@ fn main () {
 	let hot_index = hottest_day(&highs);
 	let hot_day = DAYS[hot_index];
 	println!("The hottest day was {}, with {} degrees!", hot_day, highs[hot_index]);
+
+
+	let threshold = 75;
+	let days_above = count_above(&highs, threshold);
+	println!("Number of days above {} degrees: {}", threshold, days_above);
 }
 
 
@@ -48,4 +53,11 @@ fn hottest_day(log: &Vec<i32>) -> usize {
            .max_by_key(|&(_, value)| value)
            .map(|(index, _)| index)
            .unwrap_or(0)
+}
+
+
+fn count_above(log: &Vec<i32>, threshold: i32) -> usize {
+	log.iter()
+	   .filter(|&&temp| temp > threshold)
+	   .count()
 }
