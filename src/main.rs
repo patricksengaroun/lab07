@@ -21,6 +21,11 @@ fn main () {
 
 	let avg = average_temp(&highs);
 	println!("\nAverage temperature: {:.2}", avg);
+
+
+	let hot_index = hottest_day(&highs);
+	let hot_day = DAYS[hot_index];
+	println!("The hottest day was {}, with {} degrees!", hot_day, highs[hot_index]);
 }
 
 
@@ -34,4 +39,13 @@ fn average_temp(log: &Vec<i32>) -> f64 {
 
 
 	sum as f64 / log.len() as f64
+}
+
+
+fn hottest_day(log: &Vec<i32>) -> usize {
+	log.iter()
+           .enumerate()
+           .max_by_key(|&(_, value)| value)
+           .map(|(index, _)| index)
+           .unwrap_or(0)
 }
